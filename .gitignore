@@ -50,3 +50,6 @@ buck-out/
 android/
 ios/
 .expo/
+
+.expo/
+dist/
