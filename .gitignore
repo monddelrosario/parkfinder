@@ -46,3 +46,6 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+android/
+ios/
