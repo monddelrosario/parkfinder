@@ -49,3 +49,4 @@ buck-out/
 
 android/
 ios/
+.expo/

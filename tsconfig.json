@@ -2,6 +2,7 @@
   "extends": "expo/tsconfig.base",
   "include": ["**/*.ts", "**/*.tsx", "metro.config.js"],
   "compilerOptions": {
+    "jsx": "react",
     "strict": true,
     "baseUrl": ".",
     "paths": {

@@ -11,6 +11,7 @@ import {
 
 import Main from './src/screens/Main';
 import { ModalPortal } from 'react-native-modals';
+import React from 'react';
 
 export const theme = {
   dark: 'dark',
@@ -23,33 +24,36 @@ const AsyncRootLayout = (): JSX.Element => {
 const Stack = createStackNavigator();
 const RootLayoutNav = (): JSX.Element => {
   return (
-    <GestureHandlerRootView style={styles.flexBlackBg}>
-      <SafeAreaProvider>
-        <StatusBar
-          backgroundColor="#0066cc"
-          barStyle="light-content"
-        />
-        <ModalPortal />
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              gestureEnabled: true,
-              gestureDirection: 'horizontal',
-              cardStyleInterpolator:
-                CardStyleInterpolators.forHorizontalIOS,
-              headerShown: false,
-              animationEnabled: true,
-            }}
-          >
-            <Stack.Screen
-              name="Main"
-              component={Main}
-              options={{ gestureEnabled: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <>
+      <GestureHandlerRootView style={styles.flexBlackBg}>
+        <SafeAreaProvider>
+          <StatusBar
+            backgroundColor="#0066cc"
+            barStyle="light-content"
+          />
+
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
+                cardStyleInterpolator:
+                  CardStyleInterpolators.forHorizontalIOS,
+                headerShown: false,
+                animationEnabled: true,
+              }}
+            >
+              <Stack.Screen
+                name="Main"
+                component={Main}
+                options={{ gestureEnabled: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+      <ModalPortal />
+    </>
   );
 };
 
