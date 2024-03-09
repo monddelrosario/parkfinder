@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react';
+import React, { useState, useReducer } from 'react';
 import {
   View,
   Text,
@@ -8,25 +8,25 @@ import {
   TextInput,
   Keyboard,
 } from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {BottomModal, ModalContent} from 'react-native-modals';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { BottomModal, ModalContent } from 'react-native-modals';
 import moment from 'moment';
 
-import {actionCreators, reducer, initialState} from '../../store';
+import { actionCreators, reducer, initialState } from '../../store';
 import AlertModal from './AlertModal';
 import Colors from '../../themes/colors';
 import useDateTimeDiffer from '../../utils/timeDiffCalc';
 
-const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
+const ParkNewVehicleModal = ({ visible, onTouchOutside }) => {
   const initialEntryArray = [
-    {name: 'A', active: true},
-    {name: 'B', active: false},
-    {name: 'C', active: false},
+    { name: 'A', active: true },
+    { name: 'B', active: false },
+    { name: 'C', active: false },
   ];
   const initialVehicleArray = [
-    {name: 'Small', active: true},
-    {name: 'Medium', active: false},
-    {name: 'Large', active: false},
+    { name: 'Small', active: true },
+    { name: 'Medium', active: false },
+    { name: 'Large', active: false },
   ];
   const [state, dispatch] = useReducer(reducer, initialState);
   const [entries, setEntry] = useState(initialEntryArray);
@@ -37,16 +37,16 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [plateNumber, setPlaterNumber] = useState('');
   const [error, setError] = useState(false);
-  const setActiveEntry = i => {
+  const setActiveEntry = (i) => {
     let temp = entries.slice();
-    temp.forEach(item => (item.active = false));
+    temp.forEach((item) => (item.active = false));
     temp[i].active = true;
     setEntry(temp);
   };
 
-  const setActiveVehicle = i => {
+  const setActiveVehicle = (i) => {
     let temp = vehicles.slice();
-    temp.forEach(item => (item.active = false));
+    temp.forEach((item) => (item.active = false));
     temp[i].active = true;
     setVehicles(temp);
   };
@@ -76,12 +76,14 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
     setAlertVisible(true);
     let temp1 = vehicles.slice();
     let temp2 = entries.slice();
-    let v = temp1.filter(item => item.active === true);
-    let e = temp2.filter(item => item.active === true);
+    let v = temp1.filter((item) => item.active === true);
+    let e = temp2.filter((item) => item.active === true);
 
-    let slotsAvailable = state.slots.filter(item => item.isVacant === true);
+    let slotsAvailable = state.slots.filter(
+      (item) => item.isVacant === true
+    );
     let samePlateNumber = state.slots.filter(
-      item => item.plateNumberIn === plateNumber,
+      (item) => item.plateNumberIn === plateNumber
     );
     console.log('Same plate on parked vehicles: ', samePlateNumber);
     if (samePlateNumber.length > 0) {
@@ -142,7 +144,8 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
     } else {
       //Check all available slots if applicable on vehicle type
       let result = '';
-      const vTemp = v[0].name === 'Small' ? 0 : v[0].name === 'Medium' ? 1 : 2;
+      const vTemp =
+        v[0].name === 'Small' ? 0 : v[0].name === 'Medium' ? 1 : 2;
       for (let i = 0; i <= filteredData.length - 1; i++) {
         if (filteredData[i].size >= vTemp) {
           result = filteredData[i];
@@ -158,7 +161,9 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
         console.log('No Available slot on this vehicle type');
       } else {
         result.isVacant = false;
-        result.timeIn = `${moment().format('L')} ${moment().format('LTS')}`;
+        result.timeIn = `${moment().format('L')} ${moment().format(
+          'LTS'
+        )}`;
         result.vehicleTypeIn = v[0].name;
         result.plateNumberIn = plateNumber;
         console.log('Before add on state.slots: ', result);
@@ -169,7 +174,7 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
     }
   };
 
-  const onChangeText = p => {
+  const onChangeText = (p) => {
     setError(false);
     setPlaterNumber(p);
   };
@@ -189,15 +194,18 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
         visible={visible}
         onTouchOutside={_onTouchOutside}
         onSwipeOut={_onTouchOutside}
-        modalStyle={{top: 40}}
+        modalStyle={{ top: 40 }}
         modalTitle={
           <View style={styles.modalHeaderContainer}>
             <View style={styles.topDividerStyle} />
             <View style={styles.headerTextWrapper}>
-              <Text style={styles.headerTextStyle}>{`Park New Vehicle`}</Text>
+              <Text
+                style={styles.headerTextStyle}
+              >{`Park New Car`}</Text>
             </View>
           </View>
-        }>
+        }
+      >
         <ModalContent>
           <>
             <View style={styles.alignCenter}>
@@ -208,7 +216,8 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
                     <TouchableOpacity
                       key={i}
                       style={styles.btnStyle(l.active)}
-                      onPress={() => setActiveEntry(i)}>
+                      onPress={() => setActiveEntry(i)}
+                    >
                       <Text style={styles.textCenter}>{l.name}</Text>
                     </TouchableOpacity>
                   );
@@ -221,7 +230,8 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
                     <TouchableOpacity
                       key={i}
                       style={styles.btnStyle(l.active)}
-                      onPress={() => setActiveVehicle(i)}>
+                      onPress={() => setActiveVehicle(i)}
+                    >
                       <Text style={styles.textCenter}>{l.name}</Text>
                     </TouchableOpacity>
                   );
@@ -241,8 +251,11 @@ const ParkNewVehicleModal = ({visible, onTouchOutside}) => {
               </View>
               <View style={styles.btnFindWrapper}>
                 <Pressable
-                  style={({pressed}) => [styles.btnFindStyle(pressed)]}
-                  onPress={_findParking}>
+                  style={({ pressed }) => [
+                    styles.btnFindStyle(pressed),
+                  ]}
+                  onPress={_findParking}
+                >
                   <Text style={styles.findParkingTextStyle}>
                     Find Available Parking
                   </Text>
@@ -260,7 +273,7 @@ const styles = StyleSheet.create({
   alignCenter: {
     alignContent: 'center',
   },
-  btnFindStyle: pressed => ({
+  btnFindStyle: (pressed) => ({
     borderRadius: 30,
     padding: 20,
     backgroundColor: Colors.primary,
@@ -271,7 +284,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     height: 100,
   },
-  btnStyle: active => ({
+  btnStyle: (active) => ({
     width: wp('28%'),
     height: 50,
     backgroundColor: active ? Colors.steel : Colors.transparent,
@@ -314,7 +327,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     top: -10,
   },
-  mobileInputStyle: error => ({
+  mobileInputStyle: (error) => ({
     borderWidth: 1,
     width: wp('90%'),
     borderColor: error ? Colors.fire : Colors.steel,

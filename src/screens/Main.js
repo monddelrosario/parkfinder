@@ -1,4 +1,9 @@
-import React, {useEffect, useCallback, useState, useReducer} from 'react';
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useReducer,
+} from 'react';
 
 import {
   View,
@@ -8,12 +13,12 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 
 import ParkSlotListItem from '../components/listitems/ParkSlotListItem';
 import ParkNewVehicleModal from '../components/modals/ParkNewVehicleModal';
 import ViewSlotModal from '../components/modals/ViewSlotModal';
-import {reducer, actionCreators, initialState} from '../store';
+import { reducer, actionCreators, initialState } from '../store';
 import Colors from '../themes/colors';
 import * as Services from '../services';
 
@@ -29,17 +34,13 @@ const Main = () => {
     setNewModalVisible(true);
   };
 
-  const _viewSlotModal = async item => {
+  const _viewSlotModal = async (item) => {
     setActiveSlot(item);
     setViewSlotModal(true);
   };
 
-  const _renderItem = ({item}) => {
-    return (
-      <>
-        <ParkSlotListItem item={item} onPress={_viewSlotModal} />
-      </>
-    );
+  const _renderItem = ({ item }) => {
+    return <ParkSlotListItem item={item} onPress={_viewSlotModal} />;
   };
   // useEffect(() => {
   //   console.log('MAIN SCREEN : ', state);
@@ -90,8 +91,9 @@ const Main = () => {
       <View style={styles.container}>
         <View style={styles.btnWrapper}>
           <Pressable
-            style={({pressed}) => [styles.btnStyle(pressed)]}
-            onPress={_addNewVehicle}>
+            style={({ pressed }) => [styles.btnStyle(pressed)]}
+            onPress={_addNewVehicle}
+          >
             <Text style={styles.btnTextStyle}>Park new vehicle</Text>
           </Pressable>
         </View>
@@ -112,7 +114,10 @@ const Main = () => {
             renderItem={_renderItem}
             numColumns={4}
             refreshControl={
-              <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+              <RefreshControl
+                refreshing={loading}
+                onRefresh={onRefresh}
+              />
             }
           />
         </View>
@@ -122,7 +127,7 @@ const Main = () => {
 };
 
 const styles = StyleSheet.create({
-  btnStyle: pressed => ({
+  btnStyle: (pressed) => ({
     margin: pressed ? 8 : 5,
     backgroundColor: Colors.primary,
     borderRadius: 30,
