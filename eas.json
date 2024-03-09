@@ -1,0 +1,40 @@
+{
+  "cli": {
+    "version": ">= 7.3.0",
+    "promptToConfigurePushNotifications": false,
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "bun": "1.0.7",
+      "distribution": "internal",
+      "channel": "development",
+      "env": {
+        "APP_ENV": "development"
+      },
+      "autoIncrement": true
+    },
+    "preview": {
+      "bun": "1.0.7",
+      "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "APP_ENV": "preview"
+      },
+      "autoIncrement": true
+    },
+    "production": {
+      "bun": "1.0.7",
+      "distribution": "internal",
+      "channel": "production",
+      "env": {
+        "APP_ENV": "production"
+      },
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
