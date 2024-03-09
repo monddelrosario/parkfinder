@@ -26,7 +26,6 @@
     },
     "production": {
       "bun": "1.0.7",
-      "distribution": "internal",
       "channel": "production",
       "env": {
         "APP_ENV": "production"
